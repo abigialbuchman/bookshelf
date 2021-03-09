@@ -59,7 +59,9 @@
       const nameMethod = nameForm.getAttribute('method');
 
       const nameField = nameForm.querySelector('#nameField');
-      const ageField = nameForm.querySelector('#ageField');
+      const titleField = nameForm.querySelector('#titleField');
+      const genreField = nameForm.querySelector('#genreField');
+      const reviewField = nameForm.querySelector('#reviewField');
 
       const xhr = new XMLHttpRequest();
       xhr.open(nameMethod, nameAction);
@@ -69,7 +71,7 @@
 
       xhr.onload = () =>handleResponse(xhr, true);
 
-      const formData = `name=${nameField.value}&age=${ageField.value}`;
+      const formData = `name=${nameField.value}&title=${titleField.value}&genre=${genreField.value}&review=${reviewField.value}`;
       xhr.send(formData);
 
       return false;
@@ -99,12 +101,12 @@
 
     const init = () => {
       //POST
-      const nameForm = document.querySelector('#nameForm');
+      const bookAddForm = document.querySelector('#bookAddForm');
       const addUser = (e) => {
         console.log('POST Request sent');
-        sendPost(e, nameForm);
+        sendPost(e, bookAddForm);
       };
-      nameForm.addEventListener('submit', addUser);
+      bookAddForm.addEventListener('submit', addUser);
       //GET and HEAD
       const userForm = document.querySelector('#userForm');
       const getUsers = (e) => requestUpdate(e, userForm);
@@ -117,14 +119,31 @@
 </head>
 <body>
   <section id="top">
-    <h3>POST Status Code Tests</h3>
-    <form id="nameForm" action="/addUser" method="post">
-      <label for="name">Name: </label>
+    <h3>Eager Reader</h3>
+    <!--Add Book to User-->
+    <form id="bookAddForm" action="/addUser" method="post">
+      <h3>Add A Book!</h3>
+      <label for="name">User Name: </label>
       <input id="nameField" type="text" name="name" />
-      <label for="age">Age: </label>
-      <input id="ageField" type="number" name="age" min="0" max="100" step="1"/>
-      <input type="submit" value="Add User" />
+      <label for="title">Title: </label>
+      <input id="titleField" type="text" name="title"/>
+      <label for="genre">Genre: </label>
+      <select id="genreField" name="genre">
+        <option value="sff">Science Fiction/Fantasy</option>
+        <option value="romance">Romance</option>
+        <option value="mystery">Mystery</option>
+        <option value="horror">Horror</option>
+        <option value="fiction">Fiction</option>
+        <option value="nonfiction">Non-Fiction</option>
+        <option value="other">Other</option>
+      </select>
+      <label for="review">Review:</label>
+      <textarea id="reviewField" name="review">
+        Leave a Review...
+      </textarea>
+      <input type="submit" value="Add User"/>
     </form>
+    <hr>
     <form id="userForm" action="/getUsers" method="get">
       <select id='urlField'>
         <option value='/getUsers'>/getUsers</option>

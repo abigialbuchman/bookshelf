@@ -31,10 +31,10 @@ const getUsersMeta = (request, response) => respondJSONMeta(request, response, 2
 
 const addUser = (request, response, body) => {
   const responseJSON = {
-    message: 'Name and age are both required.',
+    message: 'Name and Title are both required.',
   };
 
-  if (!body.name || !body.age) {
+  if (!body.name || !body.title) {
     responseJSON.id = 'missingParams';
     return respondJson(request, response, 400, responseJSON);
   }
@@ -45,10 +45,17 @@ const addUser = (request, response, body) => {
     responseCode = 204;
   } else {
     users[body.name] = {};
+    users[body.name].name = body.name;
+    users[body.name].books = {};
   }
 
-  users[body.name].name = body.name;
-  users[body.name].age = body.age;
+  const book = {
+    title: body.title,
+    genre: body.genre,
+    review: body.review,
+  };
+
+  users[body.name].books[body.title] = book;
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully!';
@@ -61,7 +68,7 @@ const addUser = (request, response, body) => {
 const notFound = (request, response) => {
   const responseJSON = {
     message: 'the page that you are looking for was not found',
-    is: 404
+    is: 404,
   };
 
   return respondJson(request, response, 404, responseJSON);

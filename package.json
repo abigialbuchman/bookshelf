@@ -1,11 +1,11 @@
 {
-  "name": "http-api-assignment-ii",
+  "name": "rm2project1",
   "version": "1.0.0",
   "engines": {
     "node": "15.1.0",
     "npm": "7.4.3"
   },
-  "description": "http api assignment 2",
+  "description": "project 1",
   "main": "index.js",
   "scripts": {
     "start": "node ./src/server.js",
@@ -14,14 +14,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/abigialbuchman/http-api-assignment-ii.git"
+    "url": "git+https://github.com/abigialbuchman/RM2Project1.git"
   },
   "author": "Abigail Buchman",
-  "license": "ISC",
+  "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/abigialbuchman/http-api-assignment-ii/issues"
+    "url": "https://github.com/abigialbuchman/RM2Project2/issues"
   },
-  "homepage": "https://github.com/abigialbuchman/http-api-assignment-ii#readme",
+  "homepage": "https://github.com/abigialbuchman/RM2Project2#readme",
   "devDependencies": {
     "eslint": "^7.20.0",
     "eslint-config-airbnb": "^18.2.1",
