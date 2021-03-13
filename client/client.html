@@ -123,6 +123,21 @@
       const getUsers = (e) => requestUpdate(e, userForm);
       userForm.addEventListener('submit', getUsers);
       //button set up
+      //modal tutorial from https://www.w3schools.com/howto/howto_css_modals.asp
+      const popup = document.querySelector("#postDiv");
+      const open = document.querySelector("#openForm");
+      const close = document.querySelector("#close");
+      open.onclick = () =>{
+        popup.style.display = "block";
+      }
+      close.onclick = () =>{
+        popup.style.display = "none";
+      }
+      window.onclick = (e) =>{
+        if(e.target == popup){
+          popup.style.display = "none";
+        }
+      }
     };
 
     window.onload = init;
@@ -132,33 +147,37 @@
 <body>
   <div id="headerBar">
     <h1>bookshelf</h1>
+    <button id="openForm">Add Book</button>
   </div>
   
   <section id="forms">
+    <div id="postDiv">
+      <!--Add Book to User-->
+      <!--modal information from https://www.w3schools.com/howto/howto_css_modals.asp-->
+      <form id="bookAddForm" action="/addUser" method="post">
+        <h3>Add A Book!</h3>
+        <span id="close">&times;</span>
+        <label for="name">Username: </label>
+        <input id="nameField" type="text" name="name" />
+        <label for="title">Title: </label>
+        <input id="titleField" type="text" name="title"/>
+        <label for="genre">Genre: </label>
+        <select id="genreField" name="genre">
+          <option value="fiction">Fiction</option>
+          <option value="sff">Science Fiction/Fantasy</option>
+          <option value="romance">Romance</option>
+          <option value="mystery">Mystery</option>
+          <option value="horror">Horror</option>
+          <option value="nonfiction">Non-Fiction</option>
+          <option value="other">Other</option>
+        </select>
+        <label for="review">Review:</label>
+        <textarea id="reviewField" name="review">Leave a Review...</textarea>
+        <input type="submit" value="Add Book"/>
+      </form>
+    </div>
   </section>
-  <div id="postDiv">
-    <!--Add Book to User-->
-    <form id="bookAddForm" action="/addUser" method="post">
-      <h3>Add A Book!</h3>
-      <label for="name">Username: </label>
-      <input id="nameField" type="text" name="name" />
-      <label for="title">Title: </label>
-      <input id="titleField" type="text" name="title"/>
-      <label for="genre">Genre: </label>
-      <select id="genreField" name="genre">
-        <option value="sff">Science Fiction/Fantasy</option>
-        <option value="romance">Romance</option>
-        <option value="mystery">Mystery</option>
-        <option value="horror">Horror</option>
-        <option value="fiction">Fiction</option>
-        <option value="nonfiction">Non-Fiction</option>
-        <option value="other">Other</option>
-      </select>
-      <label for="review">Review:</label>
-      <textarea id="reviewField" name="review">Leave a Review...</textarea>
-      <input type="submit" value="Add Book"/>
-    </form>
-  </div>
+  
   <div id="getDiv">
     <form id="userForm" action="/getUsers" method="get">
       <select id='urlField'>
