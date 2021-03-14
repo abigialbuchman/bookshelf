@@ -90,6 +90,25 @@ body {
 
 #content {
   margin-top: 100px;
-  font-size: 2em;
   text-align: center;
+}
+
+/*table css*/
+/*inspiration from https://www.w3schools.com/css/css_table_style.asp*/
+table {
+  width: 80%;
+  margin-left: 10%;
+}
+
+tr, th, td{
+  text-align: left;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+}
+
+tr:hover{
+  background-color: #555;
+  color: white;
+  transition-delay: .3s;
+  transition-duration: 1.5s;
 }
