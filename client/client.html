@@ -6,7 +6,7 @@
   <link rel="stylesheet" href="style.css">
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
-  <script type="text/babel">
+  <script type="text/babel" defer>
     const parseJSON = (xhr, content) =>{
       if(xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json'){
         const obj = JSON.parse(xhr.response);
@@ -17,6 +17,39 @@
 
         if(obj.users){
           content.innerHTML += `<p>${xhr.response}</p>`
+          //format the information better
+          let table = document.createElement("table");
+          //headers
+          let trTitle = document.createElement("tr");
+          trTitle.innerHTML = `${obj.users['name']}'s bookshelf`;
+          let trHeaders = document.createElement("tr");
+          let titleHeaderth = trHeaders.insertCell(-1);
+          titleHeaderth.innerHTML = `title`;
+          let genreHeaderth = trHeaders.insertCell(-1);
+          genreHeaderth.innerHTML = `genre`;
+          let reviewHeaderth = trHeaders.insertCell(-1);
+          reviewHeaderth.innerHTML = `review`;
+          
+          table.appendChild(trTitle);
+          table.appendChild(trHeaders);
+
+          console.log(obj.users['books']);
+
+          //add all books
+          for(let i = 0; i < obj.users['books'].length; i++){
+            let tr = document.createElement("tr");
+            
+            let titletd = tr.insertCell(-1);
+            titletd.innerHTML = obj.users['books'][i]['title'];
+            let genretd = tr.insertCell(-1);
+            genretd.innerHTML = obj.users['books'][i]['genre'];
+            let reviewtd = tr.insertCell(-1);
+            reviewtd.innerHTML = obj.users['books'][i]['review'];
+
+            table.appendChild(tr);
+          }
+          
+          content.appendChild(table);
         }
       }
     };
@@ -81,12 +114,12 @@
     const requestUpdate = (e, userField) => {
       e.preventDefault();
       
-      const name = userField.querySelector('#nameSearch');
+      const name = userField.querySelector('#nameSearch').value;
       let url = userField.querySelector('#urlField').value;
       const method = userField.querySelector('#methodSelect').value;
 
       const xhr = new XMLHttpRequest();
-      url += '?name=${name}';
+      url += '?name=' + name;
       console.log(url);
       xhr.open(method, url);
       
@@ -97,7 +130,7 @@
       }else{
         xhr.onload = () => handleResponse(xhr, false);
       }
-      
+
       xhr.send();
 
       return false;

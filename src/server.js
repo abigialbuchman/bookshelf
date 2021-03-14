@@ -10,7 +10,9 @@ const handleGET = (request, response, parsedURL) => {
   if (parsedURL.pathname === '/style.css') {
     htmlHandler.getCSS(request, response);
   } else if (parsedURL.pathname === '/getUsers') {
-    jsonHandler.getUsers(request, response);
+    const nameArray = parsedURL.search.split('=');
+    const name = nameArray[1];
+    jsonHandler.getUsers(request, response, name);
   } else if (parsedURL.pathname === '/') {
     htmlHandler.getIndex(request, response);
   } else if (parsedURL.pathname === '/notReal') {
@@ -55,6 +57,7 @@ const handleHEAD = (request, response, parsedURL) => {
 
 const onRequest = (request, response) => {
   const parsedURL = url.parse(request.url);
+  console.log(parsedURL);
 
   if (request.method === 'POST') {
     handlePOST(request, response, parsedURL);

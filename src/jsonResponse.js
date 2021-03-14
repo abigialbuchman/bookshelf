@@ -19,12 +19,21 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-const getUsers = (request, response) => {
-  const responseJSON = {
-    users,
-  };
+const getUsers = (request, response, name) => {
+  let code = 200;
+  let responseJSON = {};
+  if (users[name]) {
+    responseJSON = {
+      users: users[name],
+    };
+  } else {
+    responseJSON = {
+      message: 'Username does not exist',
+    };
+    code = 400;
+  }
 
-  return respondJson(request, response, 200, responseJSON);
+  return respondJson(request, response, code, responseJSON);
 };
 
 const getUsersMeta = (request, response) => respondJSONMeta(request, response, 200);
@@ -46,7 +55,7 @@ const addUser = (request, response, body) => {
   } else {
     users[body.name] = {};
     users[body.name].name = body.name;
-    users[body.name].books = {};
+    users[body.name].books = [];
   }
 
   const book = {
@@ -55,7 +64,7 @@ const addUser = (request, response, body) => {
     review: body.review,
   };
 
-  users[body.name].books[body.title] = book;
+  users[body.name].books.push(book);
 
   if (responseCode === 201) {
     responseJSON.message = 'Created Successfully!';
