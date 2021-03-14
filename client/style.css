@@ -36,6 +36,10 @@ body {
   width: 280px;
 }
 
+#totalPages{
+  display: none;
+}
+
 /* The popup form - hidden by default */
 /* model information from https://www.w3schools.com/howto/howto_css_modals.asp*/
 .formDiv{
@@ -100,7 +104,11 @@ table {
   margin-left: 10%;
 }
 
-tr, th, td{
+tr{
+  text-align: center;
+}
+
+th, td{
   text-align: left;
   padding: 10px;
   border-bottom: 1px solid #ddd;

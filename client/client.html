@@ -7,14 +7,17 @@
   <link href="https://fonts.googleapis.com/css2?family=Roboto&display=swap" rel="stylesheet">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/babel-core/5.8.34/browser.min.js"></script>
   <script type="text/babel" defer>
+    //parsing the returned json file
     const parseJSON = (xhr, content) =>{
       if(xhr.response && xhr.getResponseHeader('Content-Type') === 'application/json'){
         const obj = JSON.parse(xhr.response);
         console.dir(obj);
+        //showing message if returned 
         if(obj.message){
           content.innerHTML += `<p>Message: ${obj.message}</p>`;
         }
 
+        //displaying user information if returned
         if(obj.users){
           //content.innerHTML += `<p>${xhr.response}</p>`
           //format the information better
@@ -54,9 +57,11 @@
       }
     };
 
+    //response handler
     const handleResponse = (xhr, parse) =>{
       const content = document.querySelector('#content');
 
+      //displays information based on code sent back
       switch(xhr.status){
         case 200:
           content.innerHTML = '<b>Success!</b>'
@@ -78,20 +83,24 @@
           content.innerHTML = '<b>Error Code Not Impletmented by Client!</b>'
           break;
       }
+      //checks if json file sent back
       if(parse){
+        //displays the json file
         parseJSON(xhr, content);
       }else{
+        //head request reaction
         content.innerHTML += `<p>Meta Data Recieved</p>`
       }
       
     };
 
+    //post xml request method 
     const sendPost = (e, nameForm) => {
       e.preventDefault();
 
       const nameAction = nameForm.getAttribute('action');
       const nameMethod = nameForm.getAttribute('method');
-
+      //get all needed information
       const nameField = nameForm.querySelector('#nameField');
       const titleField = nameForm.querySelector('#titleField');
       const genreField = nameForm.querySelector('#genreField');
@@ -111,6 +120,7 @@
       return false;
     };
 
+    //get/head xml request method
     const requestUpdate = (e, userField) => {
       e.preventDefault();
       
@@ -146,6 +156,7 @@
       console.log('form opened');
     };
 
+    //page set up
     const init = () => {
       //button set up
       //modal tutorial from https://www.w3schools.com/howto/howto_css_modals.asp
@@ -160,6 +171,7 @@
       const addUser = (e) => {
         console.log('POST Request sent');
         popup.style.display = "none";
+        bookAddForm.reset();
         sendPost(e, bookAddForm);
       };
       bookAddForm.addEventListener('submit', addUser);
@@ -167,6 +179,7 @@
       const userForm = document.querySelector('#userForm');
       const getUsers = (e) => {
         popup2.style.display = "none";
+        userForm.reset();
         requestUpdate(e, userForm)
       };
       userForm.addEventListener('submit', getUsers);
@@ -207,6 +220,7 @@
     <p>bookshelf is a web api that helps you track your reading habits. log and reviews books to your account, and access previously read books with ease.</p>
     <button id="openBookForm" class="btn">add a book to your shelf</button>
     <button id="openSearchForm" class="btn">access your shelf</button>
+    <button id="totalPages" class="btn">total pages read</button>
   </div>
 
 
@@ -231,6 +245,8 @@
           <option value="nonfiction">Non-Fiction</option>
           <option value="other">Other</option>
         </select>
+        <label for="pageNumber">Page Count:</label>
+        <input id="pageField" type="text" name="pageNumber">
         <label for="review">Review:</label>
         <textarea id="reviewField" name="review">Leave a Review...</textarea>
         <input type="submit" value="Add Book"/>

@@ -9,18 +9,21 @@ const respond = (request, response, content, type) => {
   response.end();
 };
 */
+//displaying the index
 const getIndex = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/html' });
   response.write(index);
   response.end();
 };
 
+//displaying the css
 const getCSS = (request, response) => {
   response.writeHead(200, { 'Content-Type': 'text/css' });
   response.write(css);
   response.end();
 };
 
+//exporting methods
 module.exports = {
   getCSS,
   getIndex,
