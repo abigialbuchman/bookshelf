@@ -81,12 +81,15 @@
     const requestUpdate = (e, userField) => {
       e.preventDefault();
       
-      const url = userField.querySelector('#urlField').value;
+      const name = userField.querySelector('#nameSearch');
+      let url = userField.querySelector('#urlField').value;
       const method = userField.querySelector('#methodSelect').value;
 
       const xhr = new XMLHttpRequest();
+      url += '?name=${name}';
+      console.log(url);
       xhr.open(method, url);
-
+      
       xhr.setRequestHeader('Accept', 'application/json');
 
       if(method === 'get'){
@@ -94,7 +97,7 @@
       }else{
         xhr.onload = () => handleResponse(xhr, false);
       }
-
+      
       xhr.send();
 
       return false;
@@ -118,7 +121,7 @@
       const openBook = document.querySelector("#openBookForm");
       const openSearch = document.querySelector("#openSearchForm");
       const closePopup = document.querySelector("#close1");
-      const closePopup2 = document.querySelector("close2");
+      const closePopup2 = document.querySelector("#close2");
       //POST
       const bookAddForm = document.querySelector('#bookAddForm');
       const addUser = (e) => {
@@ -129,7 +132,10 @@
       bookAddForm.addEventListener('submit', addUser);
       //GET and HEAD
       const userForm = document.querySelector('#userForm');
-      const getUsers = (e) => requestUpdate(e, userForm);
+      const getUsers = (e) => {
+        popup2.style.display = "none";
+        requestUpdate(e, userForm)
+      };
       userForm.addEventListener('submit', getUsers);
       //forms
       openBook.onclick = () =>{
@@ -203,6 +209,8 @@
     <form id="userForm" action="/getUsers" method="get">
       <span class="close" id="close2">&times;</span>
       <h3>Retrieve Shelf</h3>
+      <label for="search">Enter Username</label>
+      <input id="nameSearch" type="text" name="search">
       <select id='urlField'>
         <option value='/getUsers'>/getUsers</option>
         <option value='/notReal'>/notReal</option>
