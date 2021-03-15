@@ -58,42 +58,34 @@ body {
   background-color: #fefefe;
   border: 3px solid #f1f1f1;
   padding: 20px;
+  margin: 10%;
   width: 80%;
 }
 
 .close{
   float: right;
-  padding: 20px;
+  padding: 10px;
   width: 80%;
 }
 
-#bookAddForm input, select, textarea{
+input, select, textarea, label{
   text-align: left;
   width: 100%;
-  padding-top: 5px;
+  padding-top: 10px;
+  margin: 5px;
 }
 
-#getDiv{
-  display: none;
-  position: fixed;
-  z-index: 1;
-  left: 0;
-  top: 0;
-  width: 100%;
-  height: 100%;
-  overflow: auto;
-  background-color: (0,0,0,0.3);
-}
 
 #userForm{
   background-color: #fefefe;
   border: 3px solid #f1f1f1;
   padding: 20px;
+  margin: 10%;
   width: 80%;
 }
 
 #content {
-  margin-top: 100px;
+  margin-top: 50px;
   text-align: center;
 }
 
@@ -106,6 +98,8 @@ table {
 
 tr{
   text-align: center;
+  transition-delay: .3s;
+  transition-duration: 1.5s;
 }
 
 th, td{

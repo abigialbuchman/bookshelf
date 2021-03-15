@@ -1,5 +1,5 @@
 const users = {};
-//formating the json response for GET/POST methods
+// formating the json response for GET/POST methods
 const respondJson = (request, response, status, object) => {
   const header = {
     'Content-Type': 'application/json',
@@ -10,7 +10,7 @@ const respondJson = (request, response, status, object) => {
   response.end();
 };
 
-//formating the JSON response for HEAD methods
+// formating the JSON response for HEAD methods
 const respondJSONMeta = (request, response, status) => {
   const header = {
     'Content-Type': 'application/json',
@@ -20,7 +20,7 @@ const respondJSONMeta = (request, response, status) => {
   response.end();
 };
 
-//retrieving user data (specifically books) via GET method
+// retrieving user data (specifically books) via GET method
 const getUsers = (request, response, name) => {
   let code = 200;
   let responseJSON = {};
@@ -38,10 +38,10 @@ const getUsers = (request, response, name) => {
   return respondJson(request, response, code, responseJSON);
 };
 
-//retrieving user data via HEAD method
+// retrieving user data via HEAD method
 const getUsersMeta = (request, response) => respondJSONMeta(request, response, 200);
 
-//Adding user and updating user information via POST
+// Adding user and updating user information via POST
 const addUser = (request, response, body) => {
   const responseJSON = {
     message: 'Name and Title are both required.',
@@ -66,6 +66,7 @@ const addUser = (request, response, body) => {
     title: body.title,
     genre: body.genre,
     review: body.review,
+    pagenumbers: body.pagenumber,
   };
 
   users[body.name].books.push(book);
@@ -78,7 +79,7 @@ const addUser = (request, response, body) => {
   return respondJSONMeta(request, response, responseCode);
 };
 
-//page not found
+// page not found
 const notFound = (request, response) => {
   const responseJSON = {
     message: 'the page that you are looking for was not found',
@@ -88,10 +89,10 @@ const notFound = (request, response) => {
   return respondJson(request, response, 404, responseJSON);
 };
 
-//page not found, but HEAD request
+// page not found, but HEAD request
 const notFoundMeta = (request, response) => respondJSONMeta(request, response, 404);
 
-//exporting methods
+// exporting methods
 module.exports = {
   getUsers,
   getUsersMeta,
