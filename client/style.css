@@ -38,6 +38,7 @@ li{
   cursor: pointer;
   opacity: 0.8;
   width: 280px;
+  text-align: center;
 }
 
 #totalPages{
