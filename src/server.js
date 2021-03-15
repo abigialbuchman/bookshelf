@@ -16,7 +16,9 @@ const handleGET = (request, response, parsedURL) => {
     jsonHandler.getUsers(request, response, name);
   } else if (parsedURL.pathname === '/') {
     htmlHandler.getIndex(request, response);
-  } else if (parsedURL.pathname === '/notReal') {
+  }else if(parsedURL.pathname === '/documentation.html'){
+    htmlHandler.getDocumentation(request, response);
+  }else if (parsedURL.pathname === '/notReal') {
     jsonHandler.notFound(request, response);
   } else {
     jsonHandler.notFound(request, response);

@@ -138,8 +138,6 @@
       e.preventDefault();
       
       //remove page number button 
-     
-
       const name = userField.querySelector('#nameSearch').value;
       let url = "/getUsers";
       const method = userField.querySelector('#methodSelect').value;
@@ -181,8 +179,6 @@
       const pagePopup = document.querySelector('#pagePopup');
       const openBook = document.querySelector("#openBookForm");
       const openSearch = document.querySelector("#openSearchForm");
-      
-      
       //POST
       const bookAddForm = document.querySelector('#bookAddForm');
       const addUser = (e) => {
@@ -228,7 +224,7 @@
 <body>
   <div id="headerBar">
     <ul>
-      <li>bookshelf</li>
+      <li id="homeButton">bookshelf</li>
     </ul>
   </div>
   <div id="information">
@@ -280,8 +276,10 @@
       <input type="submit" value="Get User" />
     </form>
   </div>
-  
   <section id="content">
   </section>
+  <footer>
+    <p>Abigail Buchman | IGME 2021 | <a href="../documentation.html">Documentation</a></p>
+  </footer>
 </body>
 </html>

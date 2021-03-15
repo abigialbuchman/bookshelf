@@ -26,7 +26,11 @@ body {
   display: inline;
 }
 
-.btn{
+li{
+  text-align: left;
+}
+
+.btn, input[type=submit]{
   background-color: #555;
   color: white;
   padding: 16px 20px;
@@ -113,4 +117,17 @@ tr:hover{
   color: white;
   transition-delay: .3s;
   transition-duration: 1.5s;
+}
+
+.footer{
+  position:fixed;
+  left:0;
+  bottom:0;
+  width: 100%;
+  background-color: #5d5e60;
+  color:white;
+}
+
+.footer p{
+  font-size: 10px;
 }
