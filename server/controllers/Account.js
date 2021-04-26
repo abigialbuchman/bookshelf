@@ -23,7 +23,7 @@ const login = (request, response) => {
   const res = response;
 
   const username = `${req.body.username}`;
-  const password = `${req.body.password}`;
+  const password = `${req.body.pass}`;
 
   if (!username || !password) {
     return res.status(400).json({ error: 'All fields are required!' });

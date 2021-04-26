@@ -57,5 +57,5 @@ BooksSchema.statics.findByOwner = (ownerID, callback) => {
 
 BookModel = mongoose.model('Books', BooksSchema);
 
-module.exports.BooksModel = BookModel;
+module.exports.BookModel = BookModel;
 module.exports.BooksSchema = BooksSchema;
