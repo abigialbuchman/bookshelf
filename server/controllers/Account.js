@@ -31,8 +31,15 @@ const login = (request, response) => {
   }
 
   return Account.AccountModel.authenticate(username, password, (err, account) => {
-    if (err || !account) {
+    /*
+    if (err) {
+      console.log(err);
       return res.status(400).json({ error: 'Wrong username or password.' });
+    }
+    */
+    if (!account) {
+      console.log("account");
+      return res.status(400).json({ error: 'No account.' });
     }
 
     req.session.account = Account.AccountModel.toAPI(account);
@@ -73,6 +80,7 @@ const signup = (request, response) => {
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
       console.log("account created");
+      console.log(savePromise);
       res.json({ redirect: '/maker' });
     });
 
