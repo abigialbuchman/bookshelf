@@ -8,7 +8,7 @@ const makerPage = (req, res) => {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
     }
-    return res.render('app', { csrfToken: req.csrfToken(), domos: docs });
+    return res.render('app', { csrfToken: req.csrfToken(), books: docs });
   });
 };
 
@@ -17,6 +17,9 @@ const addBooks = (req, res) => {
   if (!req.body.title || !req.body.genre || !req.body.review || !req.body.pageNumber) {
     return res.status(400).json({ error: 'All fields are required' });
   }
+
+  // find by title to see if the book already exists
+  // if so, just add the review
 
   const bookData = {
     title: req.body.title,
