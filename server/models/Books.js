@@ -1,12 +1,12 @@
 const mongoose = require('mongoose');
 
 mongoose.Promise = global.Promise;
-const _ = require('underscore');
+// const _ = require('underscore');
 
 let BookModel = {};
 
 const convertId = mongoose.Types.ObjectId;
-const setName = (name) => _.escape(name).trim();
+// const setName = (name) => _.escape(name).trim();
 
 const BooksSchema = new mongoose.Schema({
   title: {
@@ -52,10 +52,10 @@ BooksSchema.statics.findByOwner = (ownerID, callback) => {
     owner: convertId(ownerID),
   };
 
-  return BooksModel.find(search).select('title genre review pageNumber').lean().exec(callback);
+  return BookModel.find(search).select('title genre review pageNumber').lean().exec(callback);
 };
 
-BooksModel = mongoose.model('Books', BooksSchema);
+BookModel = mongoose.model('Books', BooksSchema);
 
-module.exports.BooksModel = BooksModel;
+module.exports.BooksModel = BookModel;
 module.exports.BooksSchema = BooksSchema;

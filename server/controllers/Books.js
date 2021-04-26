@@ -3,7 +3,7 @@ const models = require('../models');
 const { Books } = models;
 
 const makerPage = (req, res) => {
-  Books.BooksModel.findByOwner(req.session.account._id, (err, docs) => {
+  Books.BookModel.findByOwner(req.session.account._id, (err, docs) => {
     if (err) {
       console.log(err);
       return res.status(400).json({ error: 'An error occurred' });
@@ -14,19 +14,19 @@ const makerPage = (req, res) => {
 
 const addBooks = (req, res) => {
   console.log('Book added');
-  if (!req.body.title || !req.body.genre || !req.body.review ||!req.body.pageNumber) {
+  if (!req.body.title || !req.body.genre || !req.body.review || !req.body.pageNumber) {
     return res.status(400).json({ error: 'All fields are required' });
   }
 
   const bookData = {
     title: req.body.title,
     genre: req.body.genre,
-    review: req.body.review, 
+    review: req.body.review,
     pageNumber: req.body.pageNumber,
     owner: req.session.account._id,
   };
 
-  const newBook = new Books.BooksModel(bookData);
+  const newBook = new Books.BookModel(bookData);
 
   const booksPromise = newBook.save();
 
@@ -45,18 +45,18 @@ const addBooks = (req, res) => {
 };
 
 const getBooks = (request, response) => {
-    console.log('Getting books');
-    const req = request;
-    const res = response;
+  console.log('Getting books');
+  const req = request;
+  const res = response;
 
-    return Books.BooksModel.findByOwner(req.session.account._id, (err, docs) =>{
-        if(err){
-            console.log(err);
-            return res.status(400).json({error: 'An error occurred'});
-        }
+  return Books.BookModel.findByOwner(req.session.account._id, (err, docs) => {
+    if (err) {
+      console.log(err);
+      return res.status(400).json({ error: 'An error occurred' });
+    }
 
-        return res.json({books: docs});
-    });
+    return res.json({ books: docs });
+  });
 };
 
 module.exports.makerPage = makerPage;

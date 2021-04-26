@@ -17,9 +17,8 @@ const logout = (req, res) => {
   res.render('login');
 };
 
-
 const login = (request, response) => {
-  console.log("Login Reached");
+  console.log('Login Reached');
   const req = request;
   const res = response;
 
@@ -38,7 +37,7 @@ const login = (request, response) => {
     }
     */
     if (!account) {
-      console.log("account");
+      console.log('account');
       return res.status(400).json({ error: 'No account.' });
     }
 
@@ -49,7 +48,7 @@ const login = (request, response) => {
 };
 
 const signup = (request, response) => {
-  console.log("Signup Reached");
+  console.log('Signup Reached');
   const req = request;
   const res = response;
 
@@ -79,7 +78,7 @@ const signup = (request, response) => {
 
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
-      console.log("account created");
+      console.log('account created');
       console.log(savePromise);
       res.json({ redirect: '/maker' });
     });
@@ -102,7 +101,7 @@ const getToken = (request, response) => {
 
   const csrfJSON = {
     csrfToken: req.csrfToken(),
-  }
+  };
 
   res.json(csrfJSON);
 };
