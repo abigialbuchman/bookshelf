@@ -1,16 +1,17 @@
-const { response } = require("express");
-
 const handleError = (message) => {
     $("#errorMessage").text(message);
-    $("#domoMessage").animate({width:'toggle'},350);
+    console.log(message);
+    $("#bookMessage").animate({width:'toggle'},350);
 };
 
-const redirect = () => {
-    $("#domoMessage").animate({width:'toggle'},350);
+const redirect = (response) => {
+    $("#bookMessage").animate({width:'toggle'},350);
     window.location = response.redirect;
 };
 
 const sendAjax = (type, action, data, success) =>{
+    console.log('Ajax sent');
+    console.log(action);
     $.ajax({
         cache: false,
         type: type,

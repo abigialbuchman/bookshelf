@@ -13,6 +13,7 @@ const makerPage = (req, res) => {
 };
 
 const addBooks = (req, res) => {
+  console.log('Book added');
   if (!req.body.title || !req.body.genre || !req.body.review ||!req.body.pageNumber) {
     return res.status(400).json({ error: 'All fields are required' });
   }
@@ -44,6 +45,7 @@ const addBooks = (req, res) => {
 };
 
 const getBooks = (request, response) => {
+    console.log('Getting books');
     const req = request;
     const res = response;
 

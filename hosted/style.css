@@ -48,9 +48,6 @@ li{
 /* The popup form - hidden by default */
 /* model information from https://www.w3schools.com/howto/howto_css_modals.asp*/
 .formDiv{
-  display: none;
-  position: fixed;
-  z-index: 1;
   left: 0;
   top: 0;
   width: 100%;

@@ -1,22 +1,21 @@
-const {
-  response
-} = require("express");
-
 const handleError = message => {
   $("#errorMessage").text(message);
-  $("#domoMessage").animate({
+  console.log(message);
+  $("#bookMessage").animate({
     width: 'toggle'
   }, 350);
 };
 
-const redirect = () => {
-  $("#domoMessage").animate({
+const redirect = response => {
+  $("#bookMessage").animate({
     width: 'toggle'
   }, 350);
   window.location = response.redirect;
 };
 
 const sendAjax = (type, action, data, success) => {
+  console.log('Ajax sent');
+  console.log(action);
   $.ajax({
     cache: false,
     type: type,
@@ -32,41 +31,42 @@ const sendAjax = (type, action, data, success) => {
 };
 const handleLogin = e => {
   e.preventDefault();
-  $("#domoMessage").animate({
+  $("#bookMessage").animate({
     width: 'hide'
   }, 350);
 
   if ($("#user").val() === '' || $('#pass').val() === '') {
-    handleError("RAWR: Username or password is empty");
+    handleError("Username or password is empty");
     return false;
   }
 
-  console.log($("input[name=csrf]").val());
-  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialized(), redirect);
+  console.log($("input[name=_csrf]").val());
+  sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
   return false;
 };
 
 const handleSignup = e => {
   e.preventDefault();
-  $("#domoMessage").animate({
+  $("#bookMessage").animate({
     width: 'hide'
   }, 350);
 
   if ($("#user").val() === '' || $("#pass").val() === '' || $("#pass2").val() === '') {
-    handleError("RAWR! All fields are required");
+    handleError("All fields are required");
     return false;
   }
 
   if ($("#pass").val() !== $("#pass2").val()) {
-    handleError("RAWR! Passwords do not match");
+    handleError("Passwords do not match");
     return false;
   }
 
-  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialized(), redirect);
+  console.log($("input[name=_csrf]").val());
+  sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
   return false;
 };
 
-const loginWindow = props => {
+const LoginWindow = props => {
   return /*#__PURE__*/React.createElement("form", {
     id: "loginForm",
     name: "loginForm",
@@ -99,10 +99,10 @@ const loginWindow = props => {
   }));
 };
 
-const signinWindow = props => {
+const SignupWindow = props => {
   return /*#__PURE__*/React.createElement("form", {
-    id: "signinForm",
-    name: "signinForm",
+    id: "signupForm",
+    name: "signupForm",
     onSubmit: handleSignup,
     action: "/signup",
     method: "POST",
@@ -169,7 +169,7 @@ const setup = csrf => {
 
 const getToken = () => {
   sendAjax('GET', '/getToken', null, result => {
-    setup(result.getToken);
+    setup(result.csrfToken);
   });
 }; //why is this out for god and everybody??
 

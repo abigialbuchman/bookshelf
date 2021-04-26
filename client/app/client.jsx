@@ -2,13 +2,15 @@
 const handleBooks = (e) =>{
     e.preventDefault();
 
+    console.log("Book Submitted");
+
     if($("#titleField").val() === '' || $("#genreField").val === '' ||
          $('#genreField').val === '' || $('#pageField').val === '')
         {
             handleError("All fields are required");
             return false;
         }
-    sendAjax('POST', $("#bookAddForm").attr("action"), $("#bookAddForm").seralize(), function() {
+    sendAjax('POST', $("#bookAddForm").attr("action"), $("#bookAddForm").serialize(), function() {
         loadBooksFromServer();
     });
 };
@@ -39,6 +41,7 @@ const BooksForm = (props) =>{
             <input id="pageField" type="number" name="pageNumber" />
             <label for="review">Review:</label>
             <textarea id="reviewField" name="review">Leave a Review...</textarea>
+            <input type="hidden" name="_csrf" value={props.csrf} />
             <input type="submit" value="Add Book"/>
             </form>
             </div>
@@ -55,7 +58,9 @@ const BooksList = (props) => {
         );
     }
 
-    const booksNodes = props.booksmap(function(book){
+
+    const booksNodes = props.books.map(function(book){
+        console.log(book.title);
         return(
             <div key={book._id} className="book">
                 <h3>Title: {book.title}</h3>
@@ -63,11 +68,13 @@ const BooksList = (props) => {
         );
     });
 
+    console.log(booksNodes);
+
     return(
         <div className="booksList">
             {booksNodes}
         </div>
-    )
+    );
 };
 //load information on to the app page
 const loadBooksFromServer = () =>{
@@ -78,7 +85,7 @@ const loadBooksFromServer = () =>{
     });
 };
 
-const setup = (e) =>{
+const setup = (csrf) =>{
     ReactDOM.render(
         <BooksForm csrf={csrf} />, document.querySelector("#addBook")
     );

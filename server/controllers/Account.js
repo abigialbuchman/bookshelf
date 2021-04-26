@@ -4,10 +4,12 @@ const { Account } = models;
 
 const loginPage = (req, res) => {
   res.render('login', { csrfToken: req.csrfToken() });
+  console.log('login reached');
 };
 
 const signupPage = (req, res) => {
   res.render('signup', { csrfToken: req.csrfToken() });
+  console.log('signup reached');
 };
 
 const logout = (req, res) => {
@@ -17,6 +19,7 @@ const logout = (req, res) => {
 
 
 const login = (request, response) => {
+  console.log("Login Reached");
   const req = request;
   const res = response;
 
@@ -39,6 +42,7 @@ const login = (request, response) => {
 };
 
 const signup = (request, response) => {
+  console.log("Signup Reached");
   const req = request;
   const res = response;
 
@@ -48,11 +52,11 @@ const signup = (request, response) => {
   req.body.pass2 = `${req.body.pass2}`;
 
   if (!req.body.username || !req.body.pass || !req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! All fields are required' });
+    return res.status(400).json({ error: 'All fields are required' });
   }
 
   if (req.body.pass !== req.body.pass2) {
-    return res.status(400).json({ error: 'RAWR! Passwords do not match' });
+    return res.status(400).json({ error: 'Passwords do not match' });
   }
 
   return Account.AccountModel.generateHash(req.body.pass, (salt, hash) => {
@@ -68,6 +72,7 @@ const signup = (request, response) => {
 
     savePromise.then(() => {
       req.session.account = Account.AccountModel.toAPI(newAccount);
+      console.log("account created");
       res.json({ redirect: '/maker' });
     });
 

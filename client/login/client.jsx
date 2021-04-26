@@ -1,16 +1,16 @@
 const handleLogin = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'}, 350);
+    $("#bookMessage").animate({width:'hide'}, 350);
 
     if($("#user").val() === '' || $('#pass').val() === ''){
-        handleError("RAWR: Username or password is empty");
+        handleError("Username or password is empty");
         return false;
     }
 
-    console.log($("input[name=csrf]").val());
+    console.log($("input[name=_csrf]").val());
 
-    sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialized(), redirect);
+    sendAjax('POST', $("#loginForm").attr("action"), $("#loginForm").serialize(), redirect);
 
     return false;
 };
@@ -18,24 +18,24 @@ const handleLogin = (e) => {
 const handleSignup = (e) => {
     e.preventDefault();
 
-    $("#domoMessage").animate({width:'hide'},350);
+    $("#bookMessage").animate({width:'hide'},350);
 
     if($("#user").val() === '' || $("#pass").val() === '' || $("#pass2").val() === ''){
-        handleError("RAWR! All fields are required");
+        handleError("All fields are required");
         return false;
     }
 
     if($("#pass").val() !== $("#pass2").val()){
-        handleError("RAWR! Passwords do not match");
+        handleError("Passwords do not match");
         return false;
     }
-
-    sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialized(), redirect);
+    console.log($("input[name=_csrf]").val());
+    sendAjax('POST', $("#signupForm").attr("action"), $("#signupForm").serialize(), redirect);
 
     return false;
 }
 
-const loginWindow = (props) => {
+const LoginWindow = (props) => {
     return (
         <form id="loginForm" name="loginForm"
               onSubmit={handleLogin}
@@ -53,9 +53,9 @@ const loginWindow = (props) => {
     );
 };
 
-const signinWindow = (props) => {
+const SignupWindow = (props) => {
     return (
-        <form id="signinForm" name="signinForm"
+        <form id="signupForm" name="signupForm"
               onSubmit={handleSignup}
               action='/signup'
               method="POST"
@@ -108,7 +108,7 @@ const setup = (csrf) => {
 
 const getToken = () => {
     sendAjax('GET', '/getToken', null, (result) => {
-        setup(result.getToken);
+        setup(result.csrfToken);
     });
 };
 
