@@ -1,4 +1,6 @@
 const models = require('../models');
+const controllers = require('../controllers');
+const { BookModel } = require('../models/Books');
 
 const { Shelf } = models;
 
@@ -30,20 +32,26 @@ const addToShelf = (req, res) => {
     owner: req.session.account._id,
   };
 
-  const newShelf = new Shelf.BookModel(shelfData);
+  const newShelf = new Shelf.ShelfModel(shelfData);
 
   const shelfPromise = newShelf.save();
 
-  shelfPromise.then(() => res.json({ redirect: '/maker' }));
+  shelfPromise.then(() => res.json({ redirect: '/shelf' }));
 
   shelfPromise.catch((err) => {
     console.log(err);
     if (err.code === 11000) {
-      return res.status(400).json({ error: 'Shelf already in your shelf' });
+      return res.status(400).json({ error: 'Book already in your shelf' });
     }
 
     return res.status(400).json({ error: 'An error occurred.' });
   });
+
+  console.log(BookModel.find({title: req.body.title}).select('title'));
+  if(BookModel.find({title: req.body.title}) === "" || BookModel.find({title: req.body.title}) === undefined ){
+    controllers.Books.add(req, res);
+  }
+  controllers.Books.add(req, res);
 
   return shelfPromise;
 };
@@ -59,7 +67,7 @@ const getShelf = (request, response) => {
       return res.status(400).json({ error: 'An error occurred' });
     }
 
-    return res.json({ Shelf: docs });
+    return res.json({ shelf: docs });
   });
 };
 

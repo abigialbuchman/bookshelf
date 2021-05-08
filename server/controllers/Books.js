@@ -1,3 +1,4 @@
+const { request, response } = require('express');
 const models = require('../models');
 
 const { Books } = models;
@@ -33,7 +34,7 @@ const addBooks = (req, res) => {
 
   const booksPromise = newBook.save();
 
-  booksPromise.then(() => res.json({ redirect: '/maker' }));
+  booksPromise.then(() => res.json({ redirect: '/shelf' }));
 
   booksPromise.catch((err) => {
     console.log(err);
@@ -62,6 +63,25 @@ const getBooks = (request, response) => {
   });
 };
 
+
+const getAllBooks = (request, response) => {
+  console.log('getting all books');
+  const req = request;
+  const res = response;
+  
+  return Books.BookModel.returnAllBooks((err, docs)=>{
+    if(err){
+      console.log(err);
+      return res.status(400).json({error:'An error occured'});
+    }
+
+    console.log(docs);
+
+    return res.json({books: docs});
+  })
+};
+
 module.exports.makerPage = makerPage;
 module.exports.getBooks = getBooks;
 module.exports.add = addBooks;
+module.exports.browse = getAllBooks;

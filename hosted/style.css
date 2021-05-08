@@ -95,7 +95,7 @@ input, select, textarea, label{
 /*inspiration from https://www.w3schools.com/css/css_table_style.asp*/
 table {
   width: 80%;
-  margin-left: 10%;
+  text-align: center;
 }
 
 tr{

@@ -10,7 +10,7 @@ const requiresLogin = (req, res, next) =>{
 const requiresLogout = (req, res, next) =>{
     console.log("logout");
     if(req.session.account){
-        return res.redirect('/maker');
+        return res.redirect('/shelf');
     }
     return next();
 };

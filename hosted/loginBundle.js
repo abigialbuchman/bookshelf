@@ -1,9 +1,6 @@
 const handleError = message => {
   $("#errorMessage").text(message);
-  console.log(message);
-  $("#bookMessage").animate({
-    width: 'toggle'
-  }, 350);
+  console.log(message); //$("#bookMessage").animate({width:'toggle'},350);
 };
 
 const redirect = response => {
@@ -25,15 +22,13 @@ const sendAjax = (type, action, data, success) => {
     success: success,
     error: function (xhr, status, error) {
       var messageObj = JSON.parse(xhr.responseText);
-      handleError(messageObj.erro);
+      console.log(xhr.responseJSON);
+      handleError(messageObj.error);
     }
   });
 };
 const handleLogin = e => {
-  e.preventDefault();
-  $("#bookMessage").animate({
-    width: 'hide'
-  }, 350);
+  e.preventDefault(); //$("#bookMessage").animate({width:'hide'}, 350);
 
   if ($("#user").val() === '' || $('#pass').val() === '') {
     handleError("Username or password is empty");
@@ -46,10 +41,7 @@ const handleLogin = e => {
 };
 
 const handleSignup = e => {
-  e.preventDefault();
-  $("#bookMessage").animate({
-    width: 'hide'
-  }, 350);
+  e.preventDefault(); //$("#bookMessage").animate({width:'hide'},350);
 
   if ($("#user").val() === '' || $("#pass").val() === '' || $("#pass2").val() === '') {
     handleError("All fields are required");
