@@ -1,5 +1,5 @@
 const models = require('../models');
-const controllers = require('../controllers');
+const controllers = require('.');
 const { BookModel } = require('../models/Books');
 
 const { Shelf } = models;
@@ -47,8 +47,8 @@ const addToShelf = (req, res) => {
     return res.status(400).json({ error: 'An error occurred.' });
   });
 
-  console.log(BookModel.find({title: req.body.title}).select('title'));
-  if(BookModel.find({title: req.body.title}) === "" || BookModel.find({title: req.body.title}) === undefined ){
+  console.log(BookModel.find({ title: req.body.title }).select('title'));
+  if (BookModel.find({ title: req.body.title }) === '' || BookModel.find({ title: req.body.title }) === undefined) {
     controllers.Books.add(req, res);
   }
   controllers.Books.add(req, res);

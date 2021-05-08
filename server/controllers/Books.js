@@ -1,4 +1,3 @@
-const { request, response } = require('express');
 const models = require('../models');
 
 const { Books } = models;
@@ -63,22 +62,21 @@ const getBooks = (request, response) => {
   });
 };
 
-
 const getAllBooks = (request, response) => {
   console.log('getting all books');
-  const req = request;
+  // const req = request;
   const res = response;
-  
-  return Books.BookModel.returnAllBooks((err, docs)=>{
-    if(err){
+
+  return Books.BookModel.returnAllBooks((err, docs) => {
+    if (err) {
       console.log(err);
-      return res.status(400).json({error:'An error occured'});
+      return res.status(400).json({ error: 'An error occured' });
     }
 
     console.log(docs);
 
-    return res.json({books: docs});
-  })
+    return res.json({ books: docs });
+  });
 };
 
 module.exports.makerPage = makerPage;

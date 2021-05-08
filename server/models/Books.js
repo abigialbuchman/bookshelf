@@ -56,9 +56,9 @@ BooksSchema.statics.findByOwner = (ownerID, callback) => {
 };
 
 BooksSchema.statics.returnAllBooks = (callback) => {
-  //console.log(BookModel.find().select('title genre review pageNumber').lean().exec(callback));
-  return BookModel.find().select('title genre review pageNumber').lean().exec(callback);
-}
+  // console.log(BookModel.find().select('title genre review pageNumber').lean().exec(callback));
+  BookModel.find().select('title genre review pageNumber').lean().exec(callback);
+};
 
 BookModel = mongoose.model('Books', BooksSchema);
 
