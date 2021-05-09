@@ -3,7 +3,9 @@ const mid = require('../middlewear');
 
 const router = (app) => {
   app.get('/getToken', mid.requireSecure, controllers.Account.getToken);
+  /*
   app.get('/getBooks', mid.requiresLogin, controllers.Books.getBooks);
+  */
   app.get('/getShelf', mid.requiresLogin, controllers.Shelf.getShelf);
   app.get('/login', mid.requireSecure, mid.requiresLogout, controllers.Account.loginPage);
   app.post('/login', mid.requireSecure, mid.requiresLogout, controllers.Account.login);
