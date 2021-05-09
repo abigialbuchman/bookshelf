@@ -27,7 +27,9 @@ const sendAjax = (type, action, data, success) => {
     }
   });
 };
-//handle the books
+const {
+  reset
+} = require("nodemon"); //handle the books
 
 
 const handleBooks = e => {
