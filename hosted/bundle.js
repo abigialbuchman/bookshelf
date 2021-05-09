@@ -47,7 +47,7 @@ const handleBooks = e => {
 const addBookFromBrowse = e => {
   e.preventDefault();
   console.log("adding book");
-  console.log(e.target.parentNode.parentNode); //dom("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title");
+  console.log(e.target.parentNode.parentNode.getElementsByClassName("title")); //$("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title").innerHTML;
   //$("#titleField").val()
   //$("#titleField").val()
   //$("#titleField").val()
@@ -154,9 +154,7 @@ const BrowseBooks = props => {
         class: "genre"
       }, book.genre), /*#__PURE__*/React.createElement("td", {
         class: "pageNumber"
-      }, book.pageNumber), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
-        onClick: addBookFromBrowse
-      }, "Add Book")));
+      }, book.pageNumber));
     }
   });
   console.log(titles.includes("Slaughterhouse-5"));

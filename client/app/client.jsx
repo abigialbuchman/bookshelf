@@ -20,9 +20,9 @@ const addBookFromBrowse = (e) => {
     e.preventDefault();
 
     console.log("adding book");
-    console.log(e.target.parentNode.parentNode);
+    console.log(e.target.parentNode.parentNode.getElementsByClassName("title"));
     
-    //dom("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title");
+    //$("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title").innerHTML;
     //$("#titleField").val()
     //$("#titleField").val()
     //$("#titleField").val()
@@ -109,7 +109,6 @@ const BrowseBooks = (props) => {
                     <td class="title">{book.title}</td>
                     <td class="genre">{book.genre}</td>
                     <td class="pageNumber">{book.pageNumber}</td>
-                    <td><button onClick={addBookFromBrowse}>Add Book</button></td>
                 </tr>
             );
         }
