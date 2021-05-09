@@ -27,16 +27,12 @@ const sendAjax = (type, action, data, success) => {
     }
   });
 };
-const {
-  reset
-} = require("nodemon"); //handle the books
-
-
+//handle the books
 const handleBooks = e => {
   e.preventDefault();
   console.log("Book Submitted");
 
-  if ($("#titleField").val() === '' || $("#genreField").val === '' || $('#genreField').val === '' || $('#pageField').val === '') {
+  if ($("#titleField").val() === '' || $("#genreField").val === '' || $('#reviewField').val === '' || $('#pageField').val === '') {
     handleError("All fields are required");
     return false;
   }
@@ -44,6 +40,22 @@ const handleBooks = e => {
   sendAjax('POST', $("#bookAddForm").attr("action"), $("#bookAddForm").serialize(), function () {
     loadBooksFromServer();
   });
+  e.target.reset();
+}; //adding browsing book to the form
+
+
+const addBookFromBrowse = e => {
+  e.preventDefault();
+  console.log("adding book");
+  console.log(e.target.parentNode.parentNode); //dom("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title");
+  //$("#titleField").val()
+  //$("#titleField").val()
+  //$("#titleField").val()
+}; //Header
+
+
+const PersonalHeader = () => {
+  return /*#__PURE__*/React.createElement("h1", null, "Welcome to you bookshelf!");
 }; //form
 
 
@@ -126,17 +138,33 @@ const BrowseBooks = props => {
     }, "There are no books to browse at the moment"));
   }
 
+  let titles = [];
   const booksNodes = props.books.map(function (book) {
-    return /*#__PURE__*/React.createElement("tr", {
-      key: book._id,
-      className: "book"
-    }, /*#__PURE__*/React.createElement("td", null, book.title), /*#__PURE__*/React.createElement("td", null, book.genre), /*#__PURE__*/React.createElement("td", null, book.pageNumber));
+    if (titles.includes(book.title)) {
+      return;
+    } else if (!titles.includes(books.title)) {
+      titles.push(book.title);
+      console.log(titles);
+      return /*#__PURE__*/React.createElement("tr", {
+        key: book._id,
+        className: "book"
+      }, /*#__PURE__*/React.createElement("td", {
+        class: "title"
+      }, book.title), /*#__PURE__*/React.createElement("td", {
+        class: "genre"
+      }, book.genre), /*#__PURE__*/React.createElement("td", {
+        class: "pageNumber"
+      }, book.pageNumber), /*#__PURE__*/React.createElement("td", null, /*#__PURE__*/React.createElement("button", {
+        onClick: addBookFromBrowse
+      }, "Add Book")));
+    }
   });
+  console.log(titles.includes("Slaughterhouse-5"));
   return /*#__PURE__*/React.createElement("div", {
     className: "BrowseBookList"
   }, /*#__PURE__*/React.createElement("h3", null, "Browse All Books"), /*#__PURE__*/React.createElement("table", {
     align: "center"
-  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Title"), /*#__PURE__*/React.createElement("th", null, "Genre"), /*#__PURE__*/React.createElement("th", null, "Total Pages")), booksNodes));
+  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Title"), /*#__PURE__*/React.createElement("th", null, "Genre"), /*#__PURE__*/React.createElement("th", null, "Total Pages"), /*#__PURE__*/React.createElement("th", null)), booksNodes));
 }; //access the api
 
 
@@ -151,15 +179,22 @@ const BooksList = props => {
     console.log(book.title);
     return /*#__PURE__*/React.createElement("tr", {
       key: book._id,
-      className: "book"
-    }, /*#__PURE__*/React.createElement("td", null, book.title), /*#__PURE__*/React.createElement("td", null, book.genre), /*#__PURE__*/React.createElement("td", null, book.review));
+      className: "book",
+      onClick: addBookFromBrowse
+    }, /*#__PURE__*/React.createElement("td", {
+      class: "title"
+    }, book.title), /*#__PURE__*/React.createElement("td", {
+      class: "genre"
+    }, book.genre), /*#__PURE__*/React.createElement("td", {
+      class: "review"
+    }, book.review));
   });
   console.log(booksNodes);
   return /*#__PURE__*/React.createElement("div", {
     className: "booksList"
   }, /*#__PURE__*/React.createElement("table", {
     align: "center"
-  }, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Title"), /*#__PURE__*/React.createElement("th", null, "Genre"), /*#__PURE__*/React.createElement("th", null, "Review")), booksNodes));
+  }, /*#__PURE__*/React.createElement("thead", null, /*#__PURE__*/React.createElement("tr", null, /*#__PURE__*/React.createElement("th", null, "Title"), /*#__PURE__*/React.createElement("th", null, "Genre"), /*#__PURE__*/React.createElement("th", null, "Review"))), /*#__PURE__*/React.createElement("tbody", null, booksNodes)));
 }; //pages read 
 
 
@@ -207,6 +242,7 @@ const loadAllBooksFromServer = () => {
 };
 
 const setup = csrf => {
+  ReactDOM.render( /*#__PURE__*/React.createElement(PersonalHeader, null), document.querySelector("#header"));
   ReactDOM.render( /*#__PURE__*/React.createElement(BooksForm, {
     csrf: csrf
   }), document.querySelector("#addBook"));
@@ -217,10 +253,7 @@ const setup = csrf => {
   ReactDOM.render( /*#__PURE__*/React.createElement(PagesRead, {
     books: []
   }), document.querySelector("#pagesRead"));
-  ReactDOM.render( /*#__PURE__*/React.createElement(BrowseBooks, {
-    books: [],
-    style: "display:none"
-  }), document.querySelector("#browse"));
+  ReactDOM.render( /*#__PURE__*/React.createElement("h3", null), document.querySelector("#browse"));
   loadBooksFromServer();
 };
 

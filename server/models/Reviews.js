@@ -55,11 +55,6 @@ ShelfSchema.statics.findByOwner = (ownerID, callback) => {
   return ShelfModel.find(search).select('title genre review pageNumber').lean().exec(callback);
 };
 
-ShelfSchema.statics.returnAllBooks = (callback) => {
-  // console.log(BookModel.find().select('title genre review pageNumber').lean().exec(callback));
-  ShelfModel.find().select('title genre review pageNumber').lean().exec(callback);
-};
-
 ShelfModel = mongoose.model('Shelf', ShelfSchema);
 
 module.exports.ShelfModel = ShelfModel;

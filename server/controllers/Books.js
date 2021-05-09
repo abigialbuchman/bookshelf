@@ -33,7 +33,7 @@ const addBooks = (req, res) => {
 
   const booksPromise = newBook.save();
 
-  booksPromise.then(() => res.json({ redirect: '/shelf' }));
+  booksPromise.then(() => res.json({ redirect: '/makers' }));
 
   booksPromise.catch((err) => {
     console.log(err);

@@ -1,5 +1,3 @@
-const { reset } = require("nodemon");
-
 //handle the books
 const handleBooks = (e) =>{
     e.preventDefault();
@@ -7,7 +5,7 @@ const handleBooks = (e) =>{
     console.log("Book Submitted");
 
     if($("#titleField").val() === '' || $("#genreField").val === '' ||
-         $('#genreField').val === '' || $('#pageField').val === '')
+         $('#reviewField').val === '' || $('#pageField').val === '')
         {
             handleError("All fields are required");
             return false;
@@ -15,6 +13,26 @@ const handleBooks = (e) =>{
     sendAjax('POST', $("#bookAddForm").attr("action"), $("#bookAddForm").serialize(), function() {
         loadBooksFromServer();
     });
+    e.target.reset();
+};
+//adding browsing book to the form
+const addBookFromBrowse = (e) => {
+    e.preventDefault();
+
+    console.log("adding book");
+    console.log(e.target.parentNode.parentNode);
+    
+    //dom("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title");
+    //$("#titleField").val()
+    //$("#titleField").val()
+    //$("#titleField").val()
+}
+//Header
+const PersonalHeader = () => {
+    
+    return(
+        <h1>Welcome to you bookshelf!</h1>
+    );
 };
 //form
 const BooksForm = (props) =>{
@@ -78,18 +96,25 @@ const BrowseBooks = (props) => {
             </div>
         );
     }
-
+    let titles = [];
     const booksNodes = props.books.map(function(book){
-       
-        return(
+        
+        if(titles.includes(book.title)){
+            return;
+        }else if(!titles.includes(books.title)){
+            titles.push(book.title);
+            console.log(titles);
+            return(
                 <tr key={book._id} className="book">
-                    <td>{book.title}</td>
-                    <td>{book.genre}</td>
-                    <td>{book.pageNumber}</td>
+                    <td class="title">{book.title}</td>
+                    <td class="genre">{book.genre}</td>
+                    <td class="pageNumber">{book.pageNumber}</td>
+                    <td><button onClick={addBookFromBrowse}>Add Book</button></td>
                 </tr>
-        );
+            );
+        }
     });
-
+    console.log(titles.includes("Slaughterhouse-5"));
     return(
         <div className="BrowseBookList">
             <h3>Browse All Books</h3>
@@ -98,6 +123,7 @@ const BrowseBooks = (props) => {
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Total Pages</th>
+                <th></th>
             </tr>
             {booksNodes}
             </table>
@@ -118,10 +144,10 @@ const BooksList = (props) => {
     const booksNodes = props.books.map(function(book){
         console.log(book.title);
         return(
-                <tr key={book._id} className="book">
-                    <td>{book.title}</td>
-                    <td>{book.genre}</td>
-                    <td>{book.review}</td>
+                <tr key={book._id} className="book" onClick={addBookFromBrowse}>
+                    <td class="title">{book.title}</td>
+                    <td class="genre">{book.genre}</td>
+                    <td class="review">{book.review}</td>
                 </tr>
         );
     });
@@ -131,12 +157,17 @@ const BooksList = (props) => {
     return(
         <div className="booksList">
             <table align="center">
-            <tr>
+                <thead>
+                <tr>
                 <th>Title</th>
                 <th>Genre</th>
                 <th>Review</th>
-            </tr>
+                </tr>
+                </thead>
+            <tbody>
             {booksNodes}
+            </tbody>
+            
             </table>
         </div>
     );
@@ -201,6 +232,9 @@ const loadAllBooksFromServer = () =>{
 
 const setup = (csrf) =>{
     ReactDOM.render(
+        <PersonalHeader />, document.querySelector("#header")
+    )
+    ReactDOM.render(
         <BooksForm csrf={csrf} />, document.querySelector("#addBook")
     );
 
@@ -217,7 +251,7 @@ const setup = (csrf) =>{
     );
 
     ReactDOM.render(
-        <BrowseBooks books={[]} style="display:none"/>, document.querySelector("#browse")
+        <h3></h3>, document.querySelector("#browse")
     );
 
     loadBooksFromServer();

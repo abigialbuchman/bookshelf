@@ -1,4 +1,6 @@
 const models = require('../models');
+const controllers = require('.');
+const { BookModel } = require('../models/Books');
 
 const { Shelf } = models;
 
@@ -45,7 +47,11 @@ const addToShelf = (req, res) => {
     return res.status(400).json({ error: 'An error occurred.' });
   });
 
-  // controllers.Books.add(req, res);
+  console.log(BookModel.find({ title: req.body.title }).select('title'));
+  if (BookModel.find({ title: req.body.title }) === '' || BookModel.find({ title: req.body.title }) === undefined) {
+    controllers.Books.add(req, res);
+  }
+  controllers.Books.add(req, res);
 
   return shelfPromise;
 };
@@ -65,24 +71,6 @@ const getShelf = (request, response) => {
   });
 };
 
-const getAllBooks = (request, response) => {
-  console.log('getting all books');
-  // const req = request;
-  const res = response;
-
-  return Shelf.ShelfModel.returnAllBooks((err, docs) => {
-    if (err) {
-      console.log(err);
-      return res.status(400).json({ error: 'An error occured' });
-    }
-
-    console.log(docs);
-
-    return res.json({ books: docs });
-  });
-};
-
 module.exports.makerPage = makerPage;
 module.exports.getShelf = getShelf;
 module.exports.add = addToShelf;
-module.exports.browse = getAllBooks;
