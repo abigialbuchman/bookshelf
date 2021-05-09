@@ -60,6 +60,7 @@ app.use(session({
   store: new RedisStore({
     client: redisClient,
   }),
+  //I kept this from domo maker b/c I'm not sure if removing/changing this will completely crash the app and I dont want to find out
   secret: 'Domo Arigato',
   resave: true,
   saveUninitialized: true,
