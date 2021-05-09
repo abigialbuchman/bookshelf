@@ -1,4 +1,5 @@
 //handle the books
+//send the books to the shelf api
 const handleBooks = (e) =>{
     e.preventDefault();
 
@@ -16,17 +17,16 @@ const handleBooks = (e) =>{
     e.target.reset();
 };
 //adding browsing book to the form
+/*
 const addBookFromBrowse = (e) => {
     e.preventDefault();
 
     console.log("adding book");
-    console.log(e.target.parentNode.parentNode.getElementsByClassName("title"));
-    
-    //$("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title").innerHTML;
-    //$("#titleField").val()
-    //$("#titleField").val()
-    //$("#titleField").val()
+    console.log(e.target.parentNode.parentNode);
+    cannot figure out how to get the information out of the table,
+    save this for continued work after project
 }
+*/
 //Header
 const PersonalHeader = () => {
     
@@ -113,7 +113,7 @@ const BrowseBooks = (props) => {
             );
         }
     });
-    console.log(titles.includes("Slaughterhouse-5"));
+    
     return(
         <div className="BrowseBookList">
             <h3>Browse All Books</h3>

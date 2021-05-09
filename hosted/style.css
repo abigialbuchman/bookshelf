@@ -39,6 +39,29 @@ li{
   opacity: 0.8;
   width: 280px;
   text-align: center;
+  align-content: center;
+}
+
+.btn{
+  vertical-align: middle;
+  text-align: center;
+  margin-left: 37%;
+}
+
+#loginButton, #signupButton{
+  align-content: center;
+  text-align: center;
+}
+
+#broweBooksButton, #shelfButton{
+  background-color: #555;
+  color: white;
+  padding: 16px 20px;
+  border: none;
+  cursor: pointer;
+  opacity: 0.8;
+  width: 150px;
+  text-align: center;
 }
 
 #totalPages{
@@ -128,4 +151,28 @@ tr:hover{
 
 .footer p{
   font-size: 10px;
+}
+
+/*header links making them not look like links*/
+/* unvisited link */
+a{
+  text-decoration: none;
+}
+a:link {
+  color: #f1f1f1;
+}
+
+/* visited link */
+a:visited {
+  color: #f1f1f1;
+}
+
+/* mouse over link */
+a:hover {
+  color: #f1f1f1;
+}
+
+/* selected link */
+a:active {
+  color: #f1f1f1;
 }

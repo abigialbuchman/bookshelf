@@ -28,6 +28,7 @@ const sendAjax = (type, action, data, success) => {
   });
 };
 //handle the books
+//send the books to the shelf api
 const handleBooks = e => {
   e.preventDefault();
   console.log("Book Submitted");
@@ -43,15 +44,17 @@ const handleBooks = e => {
   e.target.reset();
 }; //adding browsing book to the form
 
+/*
+const addBookFromBrowse = (e) => {
+    e.preventDefault();
 
-const addBookFromBrowse = e => {
-  e.preventDefault();
-  console.log("adding book");
-  console.log(e.target.parentNode.parentNode.getElementsByClassName("title")); //$("#titleField").val() = e.target.parentNode.parentNode.getElementsByClassName("title").innerHTML;
-  //$("#titleField").val()
-  //$("#titleField").val()
-  //$("#titleField").val()
-}; //Header
+    console.log("adding book");
+    console.log(e.target.parentNode.parentNode);
+    cannot figure out how to get the information out of the table,
+    save this for continued work after project
+}
+*/
+//Header
 
 
 const PersonalHeader = () => {
@@ -157,7 +160,6 @@ const BrowseBooks = props => {
       }, book.pageNumber));
     }
   });
-  console.log(titles.includes("Slaughterhouse-5"));
   return /*#__PURE__*/React.createElement("div", {
     className: "BrowseBookList"
   }, /*#__PURE__*/React.createElement("h3", null, "Browse All Books"), /*#__PURE__*/React.createElement("table", {

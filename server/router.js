@@ -9,8 +9,11 @@ const router = (app) => {
   app.post('/login', mid.requireSecure, mid.requiresLogout, controllers.Account.login);
   app.post('/signup', mid.requireSecure, mid.requiresLogout, controllers.Account.signup);
   app.get('/logout', mid.requiresLogin, controllers.Account.logout);
+  /*
+  keep for Shelf to Books integration later
   app.get('/maker', mid.requiresLogin, controllers.Books.makerPage);
   app.post('/maker', mid.requiresLogin, controllers.Books.add);
+  */
   app.get('/shelf', mid.requiresLogin, controllers.Shelf.makerPage);
   app.post('/shelf', mid.requiresLogin, controllers.Shelf.add);
   app.get('/browse', mid.requiresLogin, controllers.Shelf.browse);

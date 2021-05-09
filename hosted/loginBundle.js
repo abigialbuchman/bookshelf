@@ -131,6 +131,22 @@ const SignupWindow = props => {
   }));
 };
 
+const Information = () => {
+  return /*#__PURE__*/React.createElement("div", {
+    class: "information"
+  }, /*#__PURE__*/React.createElement("h1", null, "bookshelf"), /*#__PURE__*/React.createElement("p", null, "bookshelf is a web api that helps you track your reading habits. log and reviews books to your account, and access previously read books with ease."), /*#__PURE__*/React.createElement("div", {
+    class: "btn"
+  }, /*#__PURE__*/React.createElement("a", {
+    id: "loginButton",
+    href: "/login"
+  }, "Login")), /*#__PURE__*/React.createElement("div", {
+    class: "btn"
+  }, /*#__PURE__*/React.createElement("a", {
+    id: "signupButton",
+    href: "/signup"
+  }, "Sign up")));
+};
+
 const createLoginWindow = csrf => {
   ReactDOM.render( /*#__PURE__*/React.createElement(LoginWindow, {
     csrf: csrf
@@ -163,8 +179,7 @@ const getToken = () => {
   sendAjax('GET', '/getToken', null, result => {
     setup(result.csrfToken);
   });
-}; //why is this out for god and everybody??
-
+};
 
 $(document).ready(function () {
   getToken();

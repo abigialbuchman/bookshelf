@@ -73,6 +73,17 @@ const SignupWindow = (props) => {
     );
 };
 
+const Information = () =>{
+    return(
+        <div class="information">
+        <h1>bookshelf</h1>
+        <p>bookshelf is a web api that helps you track your reading habits. log and reviews books to your account, and access previously read books with ease.</p>
+        <div class="btn"><a id="loginButton" href="/login">Login</a></div>
+        <div class="btn"><a id="signupButton" href="/signup">Sign up</a></div>
+        </div>
+    );
+}
+
 const createLoginWindow = (csrf) => {
     ReactDOM.render(
         <LoginWindow csrf={csrf} />,
@@ -112,7 +123,6 @@ const getToken = () => {
     });
 };
 
-//why is this out for god and everybody??
 $(document).ready(function(){
     getToken();
 });
